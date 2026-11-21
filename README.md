@@ -1,37 +1,31 @@
-# SOLACE Garden Plant Database
+# SOLACE Garden Plant Database (PlantDB)
 
-The Plant Database (PlantDB) is a database of plants with information about growing, maintenance, pest control, scientific classification, harvesting, etc.
+PlantDB is a separate project for maintaining, administering and publishing reference information about plants, including growing, maintenance, pest control, scientific classification and harvesting. Its intended output includes JSON data that applications such as SOLACE Garden can consume.
 
-SOLACE Garden consumes data from PlantDB, but PlantDB doesn't depend on Garden app.
+## Current Garden V1 boundary
 
-### PlantDB — Community Contributions, Moderation, and Publication
+**Garden V1 does not depend on building the PlantDB administration or publishing application.** Garden currently has a generated reference artifact at `public/assets/data/plants.json` in the `solacenetwork/solace-garden` repository. Garden V1 will consume that JSON artifact and integrate plant browsing, searching, selection and plant-related Garden workflows on the application side.
 
-**Historical source:** Early handwritten SOLACE development notebooks, clarified during the November 2026 historical review.
+How the plant reference catalog is browsed and selected, how gardeners add local plant records, and how catalog references behave across updates are **not yet finalized**. They will be designed in Garden's later plant-integration milestone, using early prototypes as references. The Garden roadmap is authoritative for V1 scope and milestone order: [SOLACE Garden roadmap](https://github.com/solacenetwork/solace-garden/blob/main/docs/ROADMAP.md).
 
-**Original vision:** PlantDB was intended to be a centrally maintained, community-contributed reference database of plants. The central collection would begin with a basic dataset and expand through submissions from SOLACE participants.
+## PlantDB backend — future work
 
-**Proposed workflow:**
+The independent PlantDB administration/publishing tool is a **potential V2/V3 project**, not a V1 blocker. Future work may include managing an authoritative plant dataset, validating submissions, moderation and generating published JSON artifacts. No specific backend implementation or community submission workflow is committed for Garden V1.
 
-1. SOLACE PlantDB maintains an authoritative collection of plant records.
-2. Garden and other consumers access published PlantDB data through JSON feeds.
-3. Individual Garden users may create additional plant records locally for their own purposes.
-4. The user may optionally submit a local plant record to the central SOLACE PlantDB.
-5. Submitted records enter a moderation queue rather than becoming immediately public.
-6. An authorized moderator reviews submissions and determines whether to accept them into the central dataset.
-7. Approved records are incorporated into PlantDB.
-8. The central dataset is republished as JSON, making approved additions available to Garden and other consumers.
+Garden may continue using a generated/static `plants.json` artifact before the full publishing tool exists. The reference artifact and its Garden-side consumption are separate concerns from how the artifact is produced.
 
-**Design principles:**
+## Historical vision (deferred, not current V1 requirements)
 
-- Local users retain the ability to maintain their own plant records.
-- Contributing records to the central database is optional.
-- Submission does not imply automatic publication.
-- Moderation protects the quality of the shared reference collection.
-- Published datasets are separate from submission and administrative workflows.
-- PlantDB serves multiple potential applications rather than belonging exclusively to Garden.
+Early SOLACE development notes envisioned a centrally maintained, community-contributed plant reference database:
 
-**Historical implementation comparison:** The PHP PlantDB included database-backed administration and JSON-related functionality, but its administrative interface did not establish the full contributor-to-moderator-to-publication workflow described in the notebooks.
+1. PlantDB maintains an authoritative collection of plant records.
+2. Applications consume published JSON datasets.
+3. Gardeners may create local plant records.
+4. Gardeners may optionally submit records to the central collection.
+5. Submissions enter a moderation queue.
+6. Authorized moderators review proposed additions.
+7. Approved records are incorporated and the dataset is republished.
 
-**Implementation status:** Partial historical administration and publishing code; proposed contribution/moderation workflow not verified as implemented.
+The historical PHP implementation included some database-backed administration and JSON-related functionality, but completion of that contribution/moderation workflow was never verified.
 
-**Future disposition:** PlantDB has been separated from Garden as an independent project. Garden v1 must provide access to PlantDB, but the integration mechanism and the future contribution/moderation architecture remain undecided.
+These ideas remain possible future directions, **not requirements for Garden V1 or evidence that the backend has already been implemented**. Local plant support and the exact Garden integration interface are still subject to Garden-side design decisions.
